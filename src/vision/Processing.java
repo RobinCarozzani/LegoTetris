@@ -64,11 +64,11 @@ public class Processing {
 			for (int i=0 ; i<contours.size() ; i++) {
 				Imgproc.drawContours(src, contours, i, new Scalar(0, 255, 0), 2);
 			}
-			next.showImage(src);
+			//TODO next.showImage(src);
 		}
 	}
 
-	public static List<List<Integer>> getJeu () {
+	public static List<List<Integer>> getJeu () throws BadWebcamException {
 		List<List<Integer>> res = null;
 		if (zones.size() > 1) {
 			MatOfPoint2f zone2 = new MatOfPoint2f();
@@ -103,6 +103,8 @@ public class Processing {
 			if (contours.size() > 2) {
 				MatOfPoint2f c = new MatOfPoint2f(contours.get(1).toArray());
 				double[] coord = c.get(1, 0);
+				if (coord == null)
+					throw new BadWebcamException("Erreur inconnue");
 				Point p = new Point(coord[0], coord[1]);
 				while (Imgproc.pointPolygonTest(c, p, false) < 0 && contours.size() > 2) {
 					contours.remove(2);
@@ -140,7 +142,7 @@ public class Processing {
 					k++;
 				}
 			}
-			game.showImage(src);
+			//TODO game.showImage(src);
 		}
 		return res;
 	}

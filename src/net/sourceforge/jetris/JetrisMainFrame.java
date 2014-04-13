@@ -43,7 +43,6 @@ public class JetrisMainFrame extends JFrame  {
     private boolean isNewFigureDroped;
     private boolean isGameOver;
     private boolean isPause;
-    private Color nextBg;
     private TimeThread tt;
     private KeyListener keyHandler;
     
@@ -219,7 +218,6 @@ public class JetrisMainFrame extends JFrame  {
         font = new Font("Dialog", Font.PLAIN, 12);
         tg = new TetrisGrid();
         ff = new FigureFactory();
-        nextBg = new Color(238,238,238);
         
         initMenu();
 
@@ -376,42 +374,6 @@ public class JetrisMainFrame extends JFrame  {
     public TetrisGrid getTG() {
     	
     	return tg;
-    }
-    private JPanel getMenuPanel() {
-        JPanel r = new JPanel();
-        
-        BoxLayout rL = new BoxLayout(r,BoxLayout.Y_AXIS);
-        
-        r.setLayout(rL);
-        r.setBorder(new EtchedBorder());
-        Dimension ra = new Dimension(5, 0);
-        
-        r.add(Box.createRigidArea(new Dimension(100, 10)));
-        
-        JPanel jp = new JPanel();
-        jp.setLayout(new BoxLayout(jp, BoxLayout.LINE_AXIS));
-        jp.add(Box.createRigidArea(ra));
-        jp.add(new JLabel("HI-SCORE:"));
-        jp.add(Box.createHorizontalGlue());
-        r.add(jp);
-        
-        hiScoreLabel = new JLabel(""+tg.hiScore[0].score);
-        hiScoreLabel.setForeground(Color.RED);
-        
-        
-        jp = new JPanel();
-        jp.setLayout(new BoxLayout(jp, BoxLayout.LINE_AXIS));
-        jp.add(Box.createRigidArea(ra));
-        jp.add(hiScoreLabel);
-        jp.add(Box.createHorizontalGlue());
-        r.add(jp);
-        
-        r.add(Box.createVerticalStrut(5));
-        
-        
-        r.add(Box.createVerticalGlue());
-
-        return r;
     }
     
     private JPanel getCopyrightPanel() {
@@ -634,7 +596,6 @@ public class JetrisMainFrame extends JFrame  {
 
         isNewFigureDroped = true;
         //updateStats();	
-        JetrisMain.solve();
     }
     
     private void moveLeft() {

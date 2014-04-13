@@ -164,7 +164,8 @@ public class Grid implements Comparable<Grid>
 			{
 				if (getCell(row, col).isOccupied())
 					str += " X ";
-				else if (tetromino.getCells(this).contains(getCell(row, col)))
+				else if (tetromino != null
+						&& tetromino.getCells(this).contains(getCell(row, col)))
 					str += " O ";
 				else
 					str += " . ";
@@ -245,10 +246,10 @@ public class Grid implements Comparable<Grid>
 	public double compute()
 	{
 		double val = 0;
-		val += -4.500158825082766 * landingHeight(); 
+		val += -4.500158825082766 * landingHeight();
 		val += 3.4181268101392694 * rowsEliminated();// OK
-		val += -3.2178882868487753 * rowsTransitions();//OK
-		val += -9.348695305445199 * columnsTransitions();//OK
+		val += -3.2178882868487753 * rowsTransitions();// OK
+		val += -9.348695305445199 * columnsTransitions();// OK
 		val += -7.899265427351652 * holesNumber();// OK
 		val += -3.3855972247263626 * wellSums(); // OK
 		return val;
@@ -389,6 +390,16 @@ public class Grid implements Comparable<Grid>
 
 	private double landingHeight()
 	{
-		return tetromino.getHeightPosition() + tetromino.getHeigt()/2;
+		return tetromino.getHeightPosition() + tetromino.getHeigt() / 2;
+	}
+
+	public Grid removeTetro()
+	{
+		if (tetromino != null)
+		{
+			tetromino.representation = new boolean[1][1];
+			tetromino.representation[0][0] = false;
+		}
+		return this;
 	}
 }

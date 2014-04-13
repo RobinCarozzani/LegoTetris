@@ -12,6 +12,7 @@ public class InternExecutor implements Executor
 	@Override
 	public void execute(Command c)
 	{
+		System.out.println("->"+c);
 		try
 		{
 			switch (c)
