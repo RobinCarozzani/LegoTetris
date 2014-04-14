@@ -49,14 +49,16 @@ public class IAMain implements Runnable
 			{
 				try
 				{
-					currentState = tdi.getTetrisData();}catch (IndexOutOfBoundsException e)
+					currentState = tdi.getTetrisData();
+				} catch (IndexOutOfBoundsException e)
 				{
 					continue;
 				}
 				// création des sous grilles
 				System.out.println(currentState);
 				possibleStates = currentState.children();
-				System.out.println(possibleStates.first());
+				if (!possibleStates.isEmpty())
+					System.out.println(possibleStates.first());
 				// calcul du chemin entre la grille actuelle et le sous grille
 				// envoi du chemin
 				play(getCommands());
@@ -67,18 +69,19 @@ public class IAMain implements Runnable
 			}
 			try
 			{
-				for (int i = 0; i < 20; i++)
-					if (tdi.getTetrisData().removeTetro()
-							.compareTo(possibleStates.first()) > 1
-							|| tdi.getTetrisData().removeTetro()
-									.compareTo(possibleStates.first()) < -1)
-						try
-						{
-							Thread.sleep(100);
-						} catch (InterruptedException e)
-						{
-							e.printStackTrace();
-						}
+				if (!possibleStates.isEmpty())
+					for (int i = 0; i < 20; i++)
+						if (tdi.getTetrisData().removeTetro()
+								.compareTo(possibleStates.first()) > 1
+								|| tdi.getTetrisData().removeTetro()
+										.compareTo(possibleStates.first()) < -1)
+							try
+							{
+								Thread.sleep(100);
+							} catch (InterruptedException e)
+							{
+								e.printStackTrace();
+							}
 			} catch (IndexOutOfBoundsException | NoInputException e)
 			{
 				System.err.println("Probleme de camera");

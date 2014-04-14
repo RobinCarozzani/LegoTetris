@@ -25,7 +25,7 @@ public class JetrisMainFrame extends JFrame  {
 
 	private MainLayout mainLayout = new MainLayout(getPlayPanel());
 	
-	private static final String NAME = "JETRIS";
+	private static final String NAME = "ENSITRIS";
     private static final int CELL_H = 24;
 	
     private Font font;
@@ -194,15 +194,15 @@ public class JetrisMainFrame extends JFrame  {
 
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
-                if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                if(code == KeyEvent.VK_O || code == KeyEvent.VK_LEFT) {
                     moveLeft();
-                } else if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                } else if(code == KeyEvent.VK_T || code == KeyEvent.VK_RIGHT) {
                     moveRight();
-                } else if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                } else if(code == KeyEvent.VK_J || code == KeyEvent.VK_DOWN) {
                     moveDown();
-                } else if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                } else if(code == KeyEvent.VK_V || code == KeyEvent.VK_UP) {
                     rotation();
-                } else if(code == KeyEvent.VK_SPACE) {
+                } else if(code == KeyEvent.VK_SEMICOLON || code == KeyEvent.VK_SPACE ) {
                     moveDrop();
                 } /*else if(code == KeyEvent.VK_R) { //Only for the applet needed
                     restart();
@@ -384,7 +384,7 @@ public class JetrisMainFrame extends JFrame  {
         r.setBorder(new EtchedBorder());
         r.add(Box.createRigidArea(new Dimension(30,0)));
         
-        JLabel jL = new JLabel("JETRIS : Ferric, Lebarbe, Meunier, Carozzani, Furon  ");
+        JLabel jL = new JLabel("ENSITRIS : Ferric, Lebarbe, Meunier, Carozzani, Furon  ");
         jL.setFont(font);
         
         r.add(jL);

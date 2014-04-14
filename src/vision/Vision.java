@@ -14,7 +14,7 @@ public class Vision {
 	public Vision() throws NoWebCamException
 	{
 		System.loadLibrary("opencv_java247");
-        cap = new VideoCapture(1);
+        cap = new VideoCapture(0);
         if(!cap.isOpened())
         	throw new NoWebCamException();
         img = new Mat();
