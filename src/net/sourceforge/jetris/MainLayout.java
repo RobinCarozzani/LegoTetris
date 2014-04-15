@@ -36,21 +36,9 @@ public class MainLayout extends JPanel
 		this.setBackground(Color.DARK_GRAY/*black*/);
 		
 		JPanel cell1 = new JPanel();
-		JPanel cell2 = new JPanel();
-		JPanel cell3 = new JPanel();
-		JPanel cell4 = new JPanel();
-		JPanel cell5 = new JPanel();
-		JPanel cell6 = new JPanel();
-		JPanel cell7 = new JPanel();
-		JPanel cell8 = new JPanel();
-		JPanel cell9 = new JPanel();
-		JPanel cell10 = new JPanel();
-		JPanel cell11 = new JPanel();
-		JPanel cell12 = new JPanel();
-		JPanel cell13 = new JPanel();
+		
 		JPanel cell14 = new JPanel();
 		JPanel cell15 = new JPanel();
-		JPanel cell16 = new JPanel();
 		JPanel cell17 = new JPanel();
 		JPanel cell18 = new JPanel();
 		JPanel cell19 = new JPanel();
@@ -91,76 +79,53 @@ public class MainLayout extends JPanel
 		JPanel cell50 = new JPanel();
 		JPanel cell51 = new JPanel();
 		
-		JPanel bot = new JPanel();
+		
+		
+		Color c = new Color(55, 55, 55);
 		
 		cell1.setBackground(Color.DARK_GRAY);
-		cell2.setBackground(Color.DARK_GRAY);
-		cell3.setBackground(Color.DARK_GRAY);
-		cell4.setBackground(Color.DARK_GRAY);
-		cell5.setBackground(Color.DARK_GRAY);
-		cell6.setBackground(Color.DARK_GRAY);
-		cell7.setBackground(Color.DARK_GRAY);
-		cell8.setBackground(Color.DARK_GRAY);
-		cell9.setBackground(Color.DARK_GRAY);
-		cell10.setBackground(Color.DARK_GRAY);
-		cell11.setBackground(Color.DARK_GRAY);
-		cell12.setBackground(Color.DARK_GRAY);
-		cell13.setBackground(Color.DARK_GRAY);
+		
 		cell14.setBackground(Color.DARK_GRAY);
 		cell15.setBackground(Color.white);
-		cell16.setBackground(Color.DARK_GRAY);
+
 		cell17.setBackground(Color.white);
 		cell18.setBackground(Color.DARK_GRAY);
 		cell19.setBackground(Color.white);
 		cell21.setBackground(Color.white);
 		cell22.setBackground(Color.DARK_GRAY);
 		cell23.setBackground(Color.white);
-		cell24.setBackground(Color.DARK_GRAY);
+		cell24.setBackground(c);
 		cell25.setBackground(Color.white);
 		cell26.setBackground(Color.white);
 		cell27.setBackground(Color.DARK_GRAY);
 		cell28.setBackground(Color.gray);
 		cell29.setBackground(Color.gray);
-		cell30.setBackground(Color.DARK_GRAY);
+		cell30.setBackground(c);
 		cell31.setBackground(Color.gray);
 		cell32.setBackground(Color.gray);
 		cell33.setBackground(Color.DARK_GRAY);
 		cell34.setBackground(Color.gray);
 		cell35.setBackground(Color.gray);
-		cell36.setBackground(Color.DARK_GRAY);
+		cell36.setBackground(c);
 		cell37.setBackground(Color.gray);
 		cell38.setBackground(Color.gray);
 		cell39.setBackground(Color.DARK_GRAY);
 		cell40.setBackground(Color.gray);
 		cell41.setBackground(Color.gray);
-		cell42.setBackground(Color.DARK_GRAY);
+		cell42.setBackground(c);
 		cell43.setBackground(Color.gray);
 		cell44.setBackground(Color.gray);
 		cell45.setBackground(Color.DARK_GRAY);
-		cell46.setBackground(Color.DARK_GRAY);
+		cell46.setBackground(c);
 		cell46.setBorder(BorderFactory.createLineBorder(Color.gray, 10));
 		cell47.setBackground(Color.DARK_GRAY);
 		cell48.setBackground(Color.DARK_GRAY);
 		cell49.setBackground(Color.white);
 		cell50.setBackground(Color.DARK_GRAY);
 		cell51.setBackground(Color.DARK_GRAY);
-		bot.setBackground(Color.green);
 		
 		
 		cell1.setPreferredSize(new Dimension (20, 20));
-		cell2.setPreferredSize(new Dimension (10, 20));
-		cell3.setPreferredSize(new Dimension (200, 20));
-		cell4.setPreferredSize(new Dimension (10, 20));
-		cell5.setPreferredSize(new Dimension (20, 20));
-		cell6.setPreferredSize(new Dimension (20, 20));
-		cell7.setPreferredSize(new Dimension (20, 20));
-		cell8.setPreferredSize(new Dimension (20, 20));
-		cell9.setPreferredSize(new Dimension (20, 20));
-		cell10.setPreferredSize(new Dimension (10, 20));
-		cell11.setPreferredSize(new Dimension (150, 20));
-		cell12.setPreferredSize(new Dimension (10, 20));
-		cell13.setPreferredSize(new Dimension (20, 20));
-		//cell13.setPreferredSize(new Dimension (20, 20));
 		cell14.setPreferredSize(new Dimension (20, 300));
 		cell15.setPreferredSize(new Dimension (220, 10));
 		
@@ -184,58 +149,20 @@ public class MainLayout extends JPanel
 		cell47.setPreferredSize(new Dimension (150, 75));
 		cell51.setPreferredSize(new Dimension (10, 20));
 		
-		
-		bot.setPreferredSize(new Dimension (200, 20));
-		
+				
 		//************************  ************************
 		this.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
 		
 		//************************ Positionnement des composants ************************
-		GridBagConstraints gbc = new GridBagConstraints();
+		
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		this.add(cell1, gbc);
-		
-		gbc.gridx = 1;
-		this.add(cell2, gbc);
-		
-		gbc.gridx = 2;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(cell3, gbc);
-		
-		gbc.gridx = 3;
-		this.add(cell4, gbc);
-		
-		gbc.gridx = 4;
-		this.add(cell5, gbc);
-		
-		gbc.gridx = 5;
-		this.add(cell6, gbc);
-		
-		gbc.gridx = 6;
-		this.add(cell7, gbc);
-		
-		gbc.gridx = 7;
-		this.add(cell8, gbc);
-		
-		gbc.gridx = 8;
-		this.add(cell9, gbc);
-		
-		gbc.gridx = 9;
-		this.add(cell10, gbc);
-		
-		gbc.gridx = 10;
-		this.add(cell11, gbc);
-		
-		gbc.gridx = 11;
-		this.add(cell12, gbc);
-		
-		gbc.gridx = 12;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		this.add(cell13, gbc);
+		gbc.gridwidth = GridBagConstraints.REMAINDER; /* 13 de largeur */
+		this.add(cell1, gbc);
 		
 		//******************************************
 		
@@ -253,14 +180,15 @@ public class MainLayout extends JPanel
 		this.add(cell15, gbc);
 		
 		gbc.gridx = 4;
-		gbc.gridheight = 1;
+		gbc.gridheight = 20;
 		gbc.gridwidth = 5;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(cell16, gbc);
+		gbc.fill = GridBagConstraints.VERTICAL;
+		this.add(cell22, gbc);
 		
 		gbc.gridx = 9;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 3;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(cell17, gbc);
 		
 		gbc.gridx = 12;
@@ -285,10 +213,6 @@ public class MainLayout extends JPanel
 		gbc.gridx = 3;
 		gbc.fill = GridBagConstraints.VERTICAL;
 		this.add(cell21, gbc);
-		
-		gbc.gridx = 4;
-		gbc.gridwidth = 5;
-		this.add(cell22, gbc);
 		
 		gbc.gridx = 9;
 		gbc.gridwidth = 1;
@@ -409,8 +333,8 @@ public class MainLayout extends JPanel
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(cell49, gbc);
 		
-		gbc.gridx = 4;
-		gbc.gridwidth = 9;
+		gbc.gridx = 9;
+		gbc.gridwidth = 4;
 		this.add(cell50, gbc);
 		
 		gbc.gridy++;
@@ -425,10 +349,10 @@ public class MainLayout extends JPanel
 		
         BoxLayout rL = new BoxLayout(r,BoxLayout.Y_AXIS);
         JPanel ajout = new JPanel();
-        ajout.setBackground(Color.DARK_GRAY);
+        ajout.setBackground(new Color (55, 55, 55));
         r.setLayout(rL);
         r.add(ajout);
-        /*r.setBorder(new EtchedBorder());*/	/* méthode intéréssante, donc à retenir */
+        /*r.setBorder(new EtchedBorder());*/	/* mï¿½thode intï¿½rï¿½ssante, donc ï¿½ retenir */
         Dimension ra = new Dimension(5, 0);
         next = new JPanel[4][4];
         JPanel nextP = new JPanel();
@@ -445,12 +369,11 @@ public class MainLayout extends JPanel
         }
         
         JPanel jp = new JPanel();
-        jp.setBackground(Color.DARK_GRAY);
         jp.setLayout(new BoxLayout(jp, BoxLayout.LINE_AXIS));
         jp.add(Box.createRigidArea(ra));
         jp.add(Box.createHorizontalGlue());
         r.add(jp);
-        nextP.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+        nextP.setBorder(BorderFactory.createLineBorder(new Color (55, 55, 55), 1));
         r.add(nextP);
         
         r.add(Box.createRigidArea(new Dimension(100, 10)));
