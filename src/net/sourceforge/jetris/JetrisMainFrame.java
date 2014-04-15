@@ -7,6 +7,7 @@ import javax.swing.border.EtchedBorder;
 /*import javax.swing.text.html.HTML;*/
 
 
+
 import res.ResClass;
 
 import java.awt.*;
@@ -25,13 +26,12 @@ public class JetrisMainFrame extends JFrame  {
 
 	private MainLayout mainLayout = new MainLayout(getPlayPanel());
 	
-	private static final String NAME = "ENSITRIS";
+	private static final String NAME = "JETRIS";
     private static final int CELL_H = 24;
 	
     private Font font;
     private JPanel playPanel;
     private JPanel[][] cells;
-    private JLabel hiScoreLabel;
     
     private TetrisGrid tg;
     
@@ -51,7 +51,6 @@ public class JetrisMainFrame extends JFrame  {
     //MENU
     private JMenuItem jetrisRestart;
     private JMenuItem jetrisPause;
-    private JMenuItem jetrisHiScore;
     private JMenuItem jetrisExit;
     
     private JMenuItem helpAbout;
@@ -59,7 +58,6 @@ public class JetrisMainFrame extends JFrame  {
     
     private HelpDialog helpDialog;
     
-    //private JPanel hiScorePanel;
     //private PublishHandler pH;
 
 	public boolean isOccupied(int row, int col)
@@ -70,7 +68,7 @@ public class JetrisMainFrame extends JFrame  {
 				return false;
 		}
 
-		return !cells[row][col].getBackground().equals(Color.DARK_GRAY);
+		return !cells[row][col].getBackground().equals(new Color(55, 55, 55));
 	}
     
     private class GridThread extends Thread {
@@ -204,6 +202,8 @@ public class JetrisMainFrame extends JFrame  {
                     rotation();
                 } else if(code == KeyEvent.VK_SEMICOLON || code == KeyEvent.VK_SPACE ) {
                     moveDrop();
+                } else if(code == KeyEvent.VK_C) {
+                    configureButtons();
                 } /*else if(code == KeyEvent.VK_R) { //Only for the applet needed
                     restart();
                 } else if(code == KeyEvent.VK_P) {
@@ -221,42 +221,17 @@ public class JetrisMainFrame extends JFrame  {
         
         initMenu();
 
-        /*************** Layout-backup ***************/
+        /*************** LAYOUT ***************/
         JPanel all = new JPanel(new BorderLayout());
         
         JPanel infoPanel = new JPanel(new GridBagLayout());
         infoPanel.setSize(420, 50);
-        //infoPanel.add(new JButton("1"));
         
         all.add(mainLayout, BorderLayout.CENTER);
-        
-        //all.add(getPlayPanel(), BorderLayout.WEST);
-        //all.add(getStatPanel(), BorderLayout.CENTER);
-        //all.add(getMenuPanel(), BorderLayout.EAST);
         all.add(getCopyrightPanel(), BorderLayout.SOUTH);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().add(all, BorderLayout.CENTER);
-        
-        /*************** Layout ***************/
-        /*JPanel all = new JPanel(new GridBagLayout());
-        
-        JPanel infoPanel = new JPanel(new GridBagLayout());
-        infoPanel.setSize(420, 50);
-        //infoPanel.add(new JButton("1"));
-        
-        all.add(infoPanel, BorderLayout.CENTER);
-        
-        all.add(getPlayPanel(), BorderLayout.WEST);
-        //all.add(getStatPanel(), BorderLayout.CENTER);
-        all.add(getMenuPanel(), BorderLayout.EAST);
-        all.add(getCopyrightPanel(), BorderLayout.SOUTH);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().add(all, BorderLayout.CENTER);*/
-        
-        
-        
+        this.getContentPane().add(all, BorderLayout.CENTER);        
         
         fNext = ff.getRandomFigure();
         dropNext();
@@ -284,6 +259,11 @@ public class JetrisMainFrame extends JFrame  {
         sp.dispose();*/
     }
     
+    private void configureButtons() {
+    	
+    	System.out.println("test");
+    }
+    
     private void initMenu() {
         
         MenuHandler mH = new MenuHandler();
@@ -307,14 +287,6 @@ public class JetrisMainFrame extends JFrame  {
             setKeyAcceleratorMenu(jetrisPause, 'P',0);
             jetrisPause.addActionListener(mH);
             jetrisPause.setMnemonic('P');
-            
-            mJetris.addSeparator();
-            
-            jetrisHiScore = new JMenuItem("HiScore...");
-            mJetris.add(jetrisHiScore);
-            setKeyAcceleratorMenu(jetrisHiScore, 'H',0);
-            jetrisHiScore.addActionListener(mH);
-            jetrisHiScore.setMnemonic('H');
             
             mJetris.addSeparator();
             
@@ -352,23 +324,17 @@ public class JetrisMainFrame extends JFrame  {
         playPanel = new JPanel();
         playPanel.setLayout(new GridLayout(20,10));
         playPanel.setPreferredSize(new Dimension(15*CELL_H, 30*CELL_H));
-        Color gridColor = new Color (70, 70, 70);
 
         cells = new JPanel[20][10];
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
                 cells[i][j] = new JPanel();
-                cells[i][j].setBackground(Color.DARK_GRAY);
-                cells[i][j].setBorder(BorderFactory.createLineBorder(gridColor)); /* grille des lignes */
+                cells[i][j].setBackground(new Color(55,55,55));
+                cells[i][j].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); /* grille des lignes */
                 playPanel.add(cells[i][j]);
             }
         }
         return playPanel;
-    }
-    
-    public void setHiScore(JLabel score) {
-    	
-    	hiScoreLabel = score;
     }
     
     public TetrisGrid getTG() {
@@ -384,98 +350,13 @@ public class JetrisMainFrame extends JFrame  {
         r.setBorder(new EtchedBorder());
         r.add(Box.createRigidArea(new Dimension(30,0)));
         
-        JLabel jL = new JLabel("ENSITRIS : Ferric, Lebarbe, Meunier, Carozzani, Furon  ");
+        JLabel jL = new JLabel("JETRIS : Ferric, Le Barbe, Meunier, Carozzani, Furon  ");
         jL.setFont(font);
         
         r.add(jL);
         
         return r;
     }
-    
-    /*private JPanel getStatPanel() {
-
-        int h = 12;
-        JPanel r = new JPanel();
-        BoxLayout rL = new BoxLayout(r,BoxLayout.Y_AXIS);
-        r.setLayout(rL);
-        r.setBorder(new EtchedBorder());
-        
-        JPanel[][] fig;
-        JPanel figP, statFP;
-        Dimension d = new Dimension(4*h, 4*h);
-        Figure f;
-        statsF = new JLabel[7];
-        statsL = new JLabel[4];
-        
-        JPanel jp = new JPanel();
-        jp.setLayout(new BoxLayout(jp, BoxLayout.LINE_AXIS));
-        jp.add(Box.createRigidArea(new Dimension(5,0)));
-        jp.add(new JLabel("STATISTICS: "));
-        jp.add(Box.createHorizontalGlue());
-        r.add(jp);
-        
-        r.add(Box.createRigidArea(new Dimension(0, 5)));
-        
-        for (int k = 0; k < 7; k++) {
-            fig = new JPanel[4][4];
-            figP = new JPanel();
-            statFP = new JPanel();
-            statFP.setLayout(new BoxLayout(statFP, BoxLayout.LINE_AXIS));
-            figP.setLayout(new GridLayout(4,4));
-            figP.setMinimumSize(d);
-            figP.setPreferredSize(d);
-            figP.setMaximumSize(d);
-            
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    fig[i][j] = new JPanel();
-                    fig[i][j].setBackground(nextBg);
-                    figP.add(fig[i][j]);
-                }
-            }
- 
-            switch (k+1) {
-            case Figure.I: f = new FigureI(); f.setOffset(2,0); break;
-            case Figure.T: f = new FigureT(); f.setOffset(1,1); break;
-            case Figure.O: f = new FigureO(); f.setOffset(1,1); break;
-            case Figure.J: f = new FigureJ(); f.setOffset(1,1); break;
-            case Figure.L: f = new FigureL(); f.setOffset(1,1); break;
-            case Figure.S: f = new FigureS(); f.setOffset(1,1); break;
-            default: f = new FigureZ(); f.setOffset(1,1); break;
-            }
-            
-            for (int i = 0; i < 4; i++) {
-                fig[f.arrY[i]+f.offsetY][f.arrX[i]+f.offsetX].setBackground(f.getGolor());
-                fig[f.arrY[i]+f.offsetY][f.arrX[i]+f.offsetX].setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-            }
-            statFP.add(figP);
-            statFP.add(new JLabel("  X  "));
-            
-            statsF[k] = new JLabel("0");
-            statsF[k].setForeground(Color.BLUE);
-            statFP.add(statsF[k]);
-            r.add(statFP);
-        }
-
-        r.add(Box.createRigidArea(new Dimension(100, 15)));
-        
-        for (int i = 0; i < statsL.length; i++) {
-            statFP = new JPanel();
-            statFP.setLayout(new BoxLayout(statFP, BoxLayout.LINE_AXIS));
-            switch (i) {
-            case 0: statFP.add(new JLabel ("  Single  X  ")); break;
-            case 1: statFP.add(new JLabel   ("Double  X  ")); break;
-            case 2: statFP.add(new JLabel ("  Triple  X  ")); break;
-            default: statFP.add(new JLabel("  Tetris  X  ")); break;
-            }
-            statsL[i] = new JLabel("0");
-            statsL[i].setForeground(Color.BLUE);
-            statFP.add(statsL[i]);
-            r.add(statFP);
-            r.add(Box.createRigidArea(new Dimension(0, 5)));
-        }
-        return r;
-    }*/
     
     static Image loadImage(String imageName) {
         try {
@@ -499,34 +380,12 @@ public class JetrisMainFrame extends JFrame  {
             clearOldPosition();
         }
         paintNewPosition();
-        
-        if(isGameOver) {
-            int tmp = tg.updateHiScore();
-            if(tmp >= 0) {
-                
-                String  s;
-                
-                do {
-                    s = JOptionPane.showInputDialog(this,"Enter Your Name...\nMust be between 1 and 10 charachters long","New HiScore "+(tmp+1)+". Place", JOptionPane.PLAIN_MESSAGE);
-                } while (s != null && (s.length() < 1 || s.length() > 10));
-                
-                if(s == null) {
-                    s = "<empty>";
-                }
-                
-                tg.saveHiScore(s,tmp);
-                
-                if(tmp == 0)
-                	hiScoreLabel.setText(""+tg.hiScore[0].score);
-            } 
-        } 
     }
     
     private void clearOldPosition() {
-    	Color gridColor = new Color (70, 70, 70);
         for (int j = 0; j < 4; j++) {
-            cells[f.arrY[j]+f.offsetYLast][f.arrX[j]+f.offsetXLast].setBackground(Color.DARK_GRAY);
-            cells[f.arrY[j]+f.offsetYLast][f.arrX[j]+f.offsetXLast].setBorder(BorderFactory.createLineBorder(gridColor));
+            cells[f.arrY[j]+f.offsetYLast][f.arrX[j]+f.offsetXLast].setBackground(new Color (55, 55, 55));
+            cells[f.arrY[j]+f.offsetYLast][f.arrX[j]+f.offsetXLast].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         }
     }
     
@@ -540,7 +399,6 @@ public class JetrisMainFrame extends JFrame  {
     private void paintTG() {
         int i = 0;
         Color c;
-        Color gridColor = new Color (70, 70, 70);
         for (int[] arr : tg.gLines) {
             for (int j = 0; j < arr.length; j++) {
                 if(arr[j]!= 0) {
@@ -556,8 +414,8 @@ public class JetrisMainFrame extends JFrame  {
                     cells[i][j].setBackground(c);
                     cells[i][j].setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                 } else {
-                    cells[i][j].setBackground(Color.DARK_GRAY);
-                    cells[i][j].setBorder(BorderFactory.createLineBorder(gridColor));
+                    cells[i][j].setBackground(new Color (55, 55, 55));
+                    cells[i][j].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
                 } 
             }
             i++;
@@ -567,7 +425,7 @@ public class JetrisMainFrame extends JFrame  {
     private void showNext(Figure f) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-            	mainLayout.next[i][j].setBackground(Color.DARK_GRAY);
+            	mainLayout.next[i][j].setBackground(new Color (55, 55, 55));
             	mainLayout.next[i][j].setBorder(BorderFactory.createEmptyBorder());
             }
         }
@@ -595,7 +453,6 @@ public class JetrisMainFrame extends JFrame  {
         
 
         isNewFigureDroped = true;
-        //updateStats();	
     }
     
     private void moveLeft() {
@@ -643,11 +500,10 @@ public class JetrisMainFrame extends JFrame  {
     }
     
     private synchronized void rotation() {
-    	Color gridColor = new Color (70, 70, 70);
         if(isGameOver || isPause) return;
         for (int j = 0; j < f.arrX.length; j++) {
-            cells[f.arrY[j]+f.offsetY][f.arrX[j]+f.offsetX].setBackground(Color.DARK_GRAY);
-            cells[f.arrY[j]+f.offsetY][f.arrX[j]+f.offsetX].setBorder(BorderFactory.createLineBorder(gridColor));
+            cells[f.arrY[j]+f.offsetY][f.arrX[j]+f.offsetX].setBackground(new Color (55, 55, 55));
+            cells[f.arrY[j]+f.offsetY][f.arrX[j]+f.offsetX].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         }
         f.rotationRight();
         if(!tg.isNextMoveValid(f,f.offsetX,f.offsetY)) {
@@ -661,12 +517,11 @@ public class JetrisMainFrame extends JFrame  {
     }
 
     private void restart() {
-    	Color gridColor = new Color (70, 70, 70);
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
                 tg.gLines.get(i)[j] = 0;
-                cells[i][j].setBackground(Color.DARK_GRAY);
-                cells[i][j].setBorder(BorderFactory.createLineBorder(gridColor));
+                cells[i][j].setBackground(new Color (55, 55, 55));
+                cells[i][j].setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
             }
         } 
         ff.resetCounts();
@@ -679,16 +534,6 @@ public class JetrisMainFrame extends JFrame  {
         dropNext();
         nextMove();
     }
-    
-    /*private void updateStats() {
-        for (int i = 0; i < statsF.length; i++) {
-            statsF[i].setText(""+ff.getCounts()[i]);
-        }
-        
-        for (int i = 0; i < statsL.length; i++) {
-            statsL[i].setText(""+tg.getDropLines()[i]);
-        }
-    }*/
     
     private void doHelp() {
         if(helpDialog == null) helpDialog = new HelpDialog(this);
@@ -711,99 +556,25 @@ public class JetrisMainFrame extends JFrame  {
         about.add(jl);
         about.add(Box.createVerticalStrut(10));
         
-        jl = new JLabel("WEB PAGE:");
-        jl.setFont(font);
-        about.add(jl);
-        HTMLLink hl = new HTMLLink("http://jetris.sf.net", false);
-        hl.setFont(font);
-        about.add(hl);
-        
         about.add(Box.createVerticalStrut(20));
         
-        jl = new JLabel("<HTML>This program is released under the Mozilla Public License 1.1 .<BR> A copy of this is included with your copy of JETRIS<BR>and can also be found at:</HTML>");
+        jl = new JLabel("<HTML>This program is released under the Mozilla Public License 1.1</HTML>");
         jl.setFont(font);
         about.add(jl);
+        
+        about.add(Box.createVerticalStrut(10));
+        about.add(Box.createVerticalStrut(20));
+        
+        jl = new JLabel("<HTML>This program has been modified by 5 students of the ENSICAEN <BR>for their school project in 2013 : "
+        		+ "<BR><BR> Pierre-Louis FURON"
+        		+ "<BR> Laurent FERRIC"
+        		+ "<BR> Gaëtan LE BARBE"
+        		+ "<BR> Robin CARROZZANI"
+        		+ "<BR> Guillaume MEUNIER</HTML>");
+        jl.setFont(font);
         about.add(jl);
-        hl = new HTMLLink("http://www.opensource.org/licenses/mozilla1.1.php", false);
-        hl.setFont(font);
-        about.add(hl);
+        
     }
-    
-    /*private void showHiScore() {
-        setHiScorePanel();
-        
-        JOptionPane.showMessageDialog(this,hiScorePanel,"HI SCORE", 
-                JOptionPane.PLAIN_MESSAGE, 
-                new ImageIcon(loadImage("jetris32x32.png")));
-        
-        hiScorePanel = null;
-    }*/
-    
-    /*private void setHiScorePanel() {
-        hiScorePanel = new JPanel(new BorderLayout());
-        
-        String[] colNames = {"Place", "Points", "Lines", "Name"};
-        String[][] data = new String[tg.hiScore.length+1][colNames.length];
-        data[0] = colNames;
-        for (int i = 0; i < tg.hiScore.length; i++) {
-            data[i+1] = new String[colNames.length];
-            data[i+1][0] = (i+1)+".";
-            data[i+1][1] = (""+tg.hiScore[i].score);
-            data[i+1][2] = (""+tg.hiScore[i].lines);
-            data[i+1][3] = (""+tg.hiScore[i].name);
-        }
-        
-        JTable table = new JTable(data, colNames);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setBackground(new Color(230,255,255));
-        table.setEnabled(false);
-        
-        hiScorePanel.add(table,BorderLayout.CENTER);
-        JButton jb = new JButton("Publish HiScore Online");
-        jb.addActionListener(pH);
-        
-        hiScorePanel.add(jb, BorderLayout.SOUTH);
-    }*/
-    
-    /*private class PublishHandler implements ActionListener {
-        public void actionPerformed(ActionEvent ae) {
-            JButton jb = (JButton) ae.getSource();
-            PublishThread pt = new PublishThread(jb);
-            pt.start();
-        }
-    }*/
-    
-    /*private class PublishThread extends Thread {
-        
-        private JButton but;
-        
-        PublishThread(JButton source) {
-            super();
-            but = source;
-        }
-        
-        public void run() {
-            but.setEnabled(false);
-            boolean b = false;
-            try {
-                for (int i = 0; i < tg.hiScore.length; i++) {
-                    PublishHiScore.publish(tg.hiScore[i]);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                b = true;
-                    JOptionPane.showMessageDialog(hiScorePanel,"Could not publish HiScore online!\nTry again later!","ERROR", 
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            if(!b) {
-                JOptionPane.showMessageDialog(hiScorePanel,"Publishing HiScore was successfull :)","HI SCORE", 
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            but.setEnabled(true);
-        }
-        
-    }*/
-
 
     private class MenuHandler implements ActionListener {
 

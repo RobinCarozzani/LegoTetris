@@ -1,13 +1,8 @@
 package net.sourceforge.jetris;
 
-import net.sourceforge.jetris.io.*;
-
-import java.io.File;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.swing.JOptionPane;
 
 public class TetrisGrid implements Serializable{
     
@@ -20,7 +15,6 @@ public class TetrisGrid implements Serializable{
     private int score;
     private int[] dropLines;
     private int level;
-    HiScore[] hiScore;
     
     TetrisGrid() {
         gLines = new LinkedList<int[]>();
@@ -29,23 +23,6 @@ public class TetrisGrid implements Serializable{
         }
         lines = score = 0;
         dropLines = new int[4];
-        
-        try{
-            hiScore = HiScore.load(DAT_FILE);
-        } catch (Exception e) {
-            hiScore = new HiScore[3];
-            for (int i = 0; i < hiScore.length; i++) {
-                hiScore[i] = new HiScore();
-                hiScore[i].name = "<empty>";
-            }
-            File f = new File(DAT_FILE);
-            try {
-                HiScore.write(hiScore, f);
-            } catch (Exception e1) {
-                JOptionPane.showMessageDialog(null, "Could not load HiScore!", "Error", 
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } 
     }
     
     boolean addFigure(Figure f) {
@@ -141,46 +118,6 @@ public class TetrisGrid implements Serializable{
             dropLines[i] = 0;
         }
     }
-    
-    int updateHiScore() {
-        for (int i = 0; i < hiScore.length; i++) {
-            HiScore s = hiScore[i];
-            if((s.score < score) || 
-              ((s.score == score) && (s.lines >= lines))) {
-                //Stack the HiScore
-                switch (i) {
-                case 0:
-                    s = hiScore[1];
-                    hiScore[1] = hiScore[0];
-                    hiScore[2] = s;
-                    s = new HiScore();
-                    hiScore[0] = s;
-                    break;
-                case 1:
-                    hiScore[2] = s;
-                    s = new HiScore();
-                    hiScore[1] = s;
-                    break;
-                };
-                s.score = score;
-                s.lines = lines;
-                return i;
-            } 
-        }
-        return -1;
-    }
-    
-    void saveHiScore(String Name, int pos) {
-        File f = new File(DAT_FILE);
-        try {
-            hiScore[pos].name = Name;
-            HiScore.write(hiScore, f);
-        } catch (Exception e1) {
-            JOptionPane.showMessageDialog(null, "Could not save HiScore!", "Error", 
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     
     public String toString() {
         
