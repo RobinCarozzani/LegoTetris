@@ -8,6 +8,7 @@ import javax.swing.border.EtchedBorder;
 
 
 
+
 import res.ResClass;
 
 import java.awt.*;
@@ -47,6 +48,8 @@ public class JetrisMainFrame extends JFrame  {
     private KeyListener keyHandler;
     
     private JPanel about;
+    private SetupKey setupKey;
+    private JFrame frame;
     
     //MENU
     private JMenuItem jetrisRestart;
@@ -187,20 +190,22 @@ public class JetrisMainFrame extends JFrame  {
         //SplashScreen sp = new SplashScreen();
         
         setIconImage(loadImage("jetris16x16.png"));
+        setupKey = new SetupKey();
+        
         
         keyHandler = new KeyAdapter(){
 
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
-                if(code == KeyEvent.VK_O || code == KeyEvent.VK_LEFT) {
+                if (code == setupKey.keyLeft || code == KeyEvent.VK_LEFT) {
                     moveLeft();
-                } else if(code == KeyEvent.VK_T || code == KeyEvent.VK_RIGHT) {
+                } else if(code == setupKey.keyRight || code == KeyEvent.VK_RIGHT) {
                     moveRight();
                 } else if(code == KeyEvent.VK_J || code == KeyEvent.VK_DOWN) {
                     moveDown();
-                } else if(code == KeyEvent.VK_V || code == KeyEvent.VK_UP) {
+                } else if(code == setupKey.keyTurn || code == KeyEvent.VK_UP) {
                     rotation();
-                } else if(code == KeyEvent.VK_SEMICOLON || code == KeyEvent.VK_SPACE ) {
+                } else if(code == setupKey.keyDrop || code == KeyEvent.VK_SPACE ) {
                     moveDrop();
                 } else if(code == KeyEvent.VK_C) {
                     configureButtons();
@@ -261,7 +266,27 @@ public class JetrisMainFrame extends JFrame  {
     
     private void configureButtons() {
     	
-    	System.out.println("test");
+    	frame = new JFrame();
+    	frame.setVisible(true);
+    	frame.setSize(300, 400);
+    	frame.setLocationRelativeTo(null);
+    	
+    	JPanel buttonPane = new JPanel();
+    	//buttonPane.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+    	
+    	JButton ok = new JButton("  OK  ");
+    	JButton cancel = new JButton("Cancel");
+    	cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				frame.setVisible(false);
+			}
+    	});
+
+    	buttonPane.add(cancel);
+    	buttonPane.add(ok);
+    	
+    	frame.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
     
     private void initMenu() {
