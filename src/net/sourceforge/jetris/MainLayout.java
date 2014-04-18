@@ -455,13 +455,14 @@ public class MainLayout extends JPanel
         r.setLayout(rL);
         
         r.add(addHelpPanel("Default inputs : "));
-		r.add(addHelpPanel("O or \u2190 - Left\n"));
         r.add(addHelpPanel("T or \u2192 - Right"));
+		r.add(addHelpPanel("O or \u2190 - Left\n"));
         r.add(addHelpPanel("V or \u2191 - Rotate\n"));
         r.add(addHelpPanel("\u2193 - Down\n"));
         r.add(addHelpPanel("; or Space - Drop\n"));
         r.add(addHelpPanel("P - Pause\n"));
         r.add(addHelpPanel("R - Restart"));
+        r.add(addHelpPanel("S - commands setup"));
         return r;
 	}
     
