@@ -468,7 +468,7 @@ public class JetrisMainFrame extends JFrame  {
 
         mainLayout.score.setText(""+tg.getScore());
         mainLayout.lines.setText(""+tg.getLines());
-        mainLayout.levelLabel.setText(tg.getLevel()+" / 20");
+        mainLayout.levelLabel.setText(tg.getLevel()+" / " + tg.MAXLEVEL);
 
         f = fNext;
         fNext = ff.getRandomFigure();

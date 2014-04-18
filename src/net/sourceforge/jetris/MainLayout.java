@@ -454,6 +454,7 @@ public class MainLayout extends JPanel
         BoxLayout rL = new BoxLayout(r,BoxLayout.Y_AXIS);
         r.setLayout(rL);
         
+        r.add(addHelpPanel("Default inputs : "));
 		r.add(addHelpPanel("O or \u2190 - Left\n"));
         r.add(addHelpPanel("T or \u2192 - Right"));
         r.add(addHelpPanel("V or \u2191 - Rotate\n"));
