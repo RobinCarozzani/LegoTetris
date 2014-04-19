@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+
 public class TetrisGrid implements Serializable{
     
 	private static final long serialVersionUID = 8818986785763755443L;
+	public static int MAXLEVEL = 10;
 
 	static final String DAT_FILE = "JETRIS.DAT";
     
@@ -87,8 +89,8 @@ public class TetrisGrid implements Serializable{
         this.lines += lines;
         
         level = this.lines / 10;
-        //level = 20;
-        if(level > 20) level = 20;
+        //level = 10;
+        if(level > TetrisGrid.MAXLEVEL) level = TetrisGrid.MAXLEVEL;
         
         if (lines > 0) {
             dropLines[lines-1]++;

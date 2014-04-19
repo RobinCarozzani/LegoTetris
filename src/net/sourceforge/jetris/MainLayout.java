@@ -454,13 +454,15 @@ public class MainLayout extends JPanel
         BoxLayout rL = new BoxLayout(r,BoxLayout.Y_AXIS);
         r.setLayout(rL);
         
-		r.add(addHelpPanel("A or \u2190 - Left\n"));
-        r.add(addHelpPanel("D or \u2192 - Right"));
-        r.add(addHelpPanel("W or \u2191 - Rotate\n"));
-        r.add(addHelpPanel("S or \u2193 - Down\n"));
-        r.add(addHelpPanel("Space - Drop\n"));
+        r.add(addHelpPanel("Default inputs : "));
+        r.add(addHelpPanel("T or \u2192 - Right"));
+		r.add(addHelpPanel("O or \u2190 - Left\n"));
+        r.add(addHelpPanel("V or \u2191 - Rotate\n"));
+        r.add(addHelpPanel("\u2193 - Down\n"));
+        r.add(addHelpPanel("; or Space - Drop\n"));
         r.add(addHelpPanel("P - Pause\n"));
         r.add(addHelpPanel("R - Restart"));
+        r.add(addHelpPanel("S - commands setup"));
         return r;
 	}
     

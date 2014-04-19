@@ -8,6 +8,8 @@ import javax.swing.border.EtchedBorder;
 
 
 
+
+
 import res.ResClass;
 
 import java.awt.*;
@@ -47,10 +49,13 @@ public class JetrisMainFrame extends JFrame  {
     private KeyListener keyHandler;
     
     private JPanel about;
+    private SetupKey setupKey;
+    private JDialog frame;
     
     //MENU
     private JMenuItem jetrisRestart;
     private JMenuItem jetrisPause;
+    private JMenuItem jetrisSetup;
     private JMenuItem jetrisExit;
     
     private JMenuItem helpAbout;
@@ -187,24 +192,24 @@ public class JetrisMainFrame extends JFrame  {
         //SplashScreen sp = new SplashScreen();
         
         setIconImage(loadImage("jetris16x16.png"));
+        setupKey = new SetupKey();
+        
         
         keyHandler = new KeyAdapter(){
 
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
-                if(code == KeyEvent.VK_O || code == KeyEvent.VK_LEFT) {
+                if (code == setupKey.keyLeft || code == KeyEvent.VK_LEFT) {
                     moveLeft();
-                } else if(code == KeyEvent.VK_T || code == KeyEvent.VK_RIGHT) {
+                } else if(code == setupKey.keyRight || code == KeyEvent.VK_RIGHT) {
                     moveRight();
                 } else if(code == KeyEvent.VK_J || code == KeyEvent.VK_DOWN) {
                     moveDown();
-                } else if(code == KeyEvent.VK_V || code == KeyEvent.VK_UP) {
+                } else if(code == setupKey.keyTurn || code == KeyEvent.VK_UP) {
                     rotation();
-                } else if(code == KeyEvent.VK_SEMICOLON || code == KeyEvent.VK_SPACE ) {
+                } else if(code == setupKey.keyDrop || code == KeyEvent.VK_SPACE ) {
                     moveDrop();
-                } else if(code == KeyEvent.VK_C) {
-                    configureButtons();
-                } /*else if(code == KeyEvent.VK_R) { //Only for the applet needed
+                }/*else if(code == KeyEvent.VK_R) { //Only for the applet needed
                     restart();
                 } else if(code == KeyEvent.VK_P) {
                     pause();
@@ -259,9 +264,210 @@ public class JetrisMainFrame extends JFrame  {
         sp.dispose();*/
     }
     
+    
+    /*  
+     * Méthode permettant de configurer les touches du clavier pour jouer au Tetris (via l'IHM) 
+     * */
+    
     private void configureButtons() {
+
+    	final String str = "   Change ";
+    	final JLabel labelRight = new JLabel("     Right : " + (char)setupKey.getKeyRight());
+    	final JLabel labelLeft = new JLabel("     Left : " + (char)setupKey.getKeyLeft());
+    	final JLabel labelTurn = new JLabel("     Turn : " + (char)setupKey.getKeyTurn());
+    	final JLabel labelDrop = new JLabel("     Drop : " + (char)setupKey.getKeyDrop());
     	
-    	System.out.println("test");
+    	/* DEFINITION DES BOUTONS */
+    	
+    	final JButton buttonRight = new JButton(str + "right");
+    	buttonRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				final JDialog test = new JDialog();
+				test.add(new JLabel("   Appuyer sur une touche"));
+				KeyListener kl = new KeyListener()
+				{
+					
+					@Override
+					public void keyTyped(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent e)
+					{
+						setupKey.setKeyRight(e.getKeyCode());
+						labelRight.setText("     Right : " + (char)setupKey.getKeyRight());
+						test.dispose();
+						
+					}
+				};
+				test.addKeyListener(kl);
+				test.setVisible(true);
+		    	test.setSize(200, 70);
+		    	test.setLocationRelativeTo(null);
+			}
+    	});
+    	final JButton buttonLeft = new JButton(str + "left");
+    	buttonLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				final JDialog test = new JDialog();
+				test.add(new JLabel("   Appuyer sur une touche"));
+				KeyListener kl = new KeyListener()
+				{
+					
+					@Override
+					public void keyTyped(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent e)
+					{
+						setupKey.setKeyLeft(e.getKeyCode());
+						labelLeft.setText("     Left : " + (char)setupKey.getKeyLeft());
+						test.dispose();
+						
+					}
+				};
+				test.addKeyListener(kl);
+				test.setVisible(true);
+		    	test.setSize(200, 70);
+		    	test.setLocationRelativeTo(null);
+			}
+    	});
+    	final JButton buttonTurn = new JButton(str + "turn");
+    	buttonTurn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				final JDialog test = new JDialog();
+				test.add(new JLabel("   Appuyer sur une touche"));
+				KeyListener kl = new KeyListener()
+				{
+					
+					@Override
+					public void keyTyped(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent e)
+					{
+						setupKey.setKeyTurn(e.getKeyCode());
+						labelTurn.setText("     Turn : " + (char)setupKey.getKeyTurn());
+						test.dispose();
+						
+					}
+				};
+				test.addKeyListener(kl);
+				test.setVisible(true);
+		    	test.setSize(200, 70);
+		    	test.setLocationRelativeTo(null);
+			}
+    	});
+    	final JButton buttonDrop = new JButton(str + "drop");
+    	buttonDrop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				final JDialog test = new JDialog();
+				test.add(new JLabel("   Appuyer sur une touche"));
+				KeyListener kl = new KeyListener()
+				{
+					
+					@Override
+					public void keyTyped(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent e)
+					{
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent e)
+					{
+						setupKey.setKeyDrop(e.getKeyCode());
+						labelDrop.setText("     Drop : " + (char)setupKey.getKeyDrop());
+						test.dispose();
+						
+					}
+				};
+				test.addKeyListener(kl);
+				test.setVisible(true);
+		    	test.setSize(200, 70);
+		    	test.setLocationRelativeTo(null);
+			}
+    	});    	
+    	
+		frame = new JDialog(this, "Configuration des commandes");
+    	frame.setVisible(true);
+    	frame.setSize(400, 300);
+    	frame.setLocationRelativeTo(null);
+
+    	frame.setModal(true);
+    	
+    	JPanel setupPanel = new JPanel();
+    	JPanel buttonPane = new JPanel();
+    	GridLayout gl = new GridLayout(4, 2);
+    	gl.setVgap(10);
+    	gl.setVgap(10);
+    	setupPanel.add(labelRight);
+    	setupPanel.add(buttonRight);
+    	setupPanel.add(labelLeft);
+    	setupPanel.add(buttonLeft);
+    	setupPanel.add(labelTurn);
+    	setupPanel.add(buttonTurn);
+    	setupPanel.add(labelDrop);
+    	setupPanel.add(buttonDrop);
+    	
+    	JButton ok = new JButton("  OK  ");
+    	ok.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				frame.dispose();
+			}
+    	});
+
+    	buttonPane.add(ok);
+    	setupPanel.setLayout(gl);
+    	
+    	frame.getContentPane().add(new JPanel(), BorderLayout.EAST);
+    	frame.getContentPane().add(new JLabel("Ecrire en majuscule"), BorderLayout.NORTH);
+    	frame.getContentPane().add(setupPanel, BorderLayout.CENTER);
+    	frame.getContentPane().add(buttonPane, BorderLayout.SOUTH);
     }
     
     private void initMenu() {
@@ -287,6 +493,14 @@ public class JetrisMainFrame extends JFrame  {
             setKeyAcceleratorMenu(jetrisPause, 'P',0);
             jetrisPause.addActionListener(mH);
             jetrisPause.setMnemonic('P');
+            
+            mJetris.addSeparator();
+            
+            jetrisSetup = new JMenuItem("Setup");
+            mJetris.add(jetrisSetup);
+            setKeyAcceleratorMenu(jetrisSetup, 'S',0);
+            jetrisSetup.addActionListener(mH);
+            jetrisSetup.setMnemonic('S');
             
             mJetris.addSeparator();
             
@@ -443,7 +657,7 @@ public class JetrisMainFrame extends JFrame  {
 
         mainLayout.score.setText(""+tg.getScore());
         mainLayout.lines.setText(""+tg.getLines());
-        mainLayout.levelLabel.setText(tg.getLevel()+" / 20");
+        mainLayout.levelLabel.setText(tg.getLevel()+" / " + tg.MAXLEVEL);
 
         f = fNext;
         fNext = ff.getRandomFigure();
@@ -585,9 +799,9 @@ public class JetrisMainFrame extends JFrame  {
                     restart();
                 } else if (tmp == jetrisPause) {
                     pause();
-                } /*else if (tmp == jetrisHiScore) {
-                    showHiScore();
-                }*/ else if (tmp == jetrisExit) {
+                } else if (tmp == jetrisSetup) {
+                    configureButtons();
+                } else if (tmp == jetrisExit) {
                     System.exit(0);
                 } else if (tmp == helpJetris) {
                     doHelp();
