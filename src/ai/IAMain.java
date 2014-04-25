@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import net.sourceforge.jetris.JetrisMainFrame;
 import ai.executor.Executor;
 import ai.executor.InternExecutor;
+import ai.executor.PhysicalExecutor;
 import ai.input.CameraInput;
 import ai.input.GameInput;
 import ai.input.NoInputException;
@@ -21,6 +22,7 @@ public class IAMain implements Runnable
 
 	public static void main(String args[])
 	{
+		//System.loadLibrary("opencv_java247");
 		// (new Thread(new IAMain(new GameInput(new
 		// JetrisMainFrame())))).start();
 		(new Thread(new IAMain(new CameraInput()))).start();
@@ -47,14 +49,12 @@ public class IAMain implements Runnable
 			// Acquisition de la grille
 			try
 			{
-				try
-				{
-					currentState = tdi.getTetrisData();
-				} catch (IndexOutOfBoundsException e)
-				{
-					continue;
-				}
-				// création des sous grilles
+				for (int i=0 ; i< 40 ; i++)
+				currentState = tdi.getTetrisData();
+				currentState = tdi.getTetrisData();
+				currentState = tdi.getTetrisData();
+			
+				// crï¿½ation des sous grilles
 				System.out.println(currentState);
 				possibleStates = currentState.children();
 				if (!possibleStates.isEmpty())
@@ -62,38 +62,35 @@ public class IAMain implements Runnable
 				// calcul du chemin entre la grille actuelle et le sous grille
 				// envoi du chemin
 				play(getCommands());
-			} catch (NoInputException e)
+			} catch (NullPointerException | IndexOutOfBoundsException | NoInputException e)
 			{
-				e.printStackTrace();
 				continue;
 			}
 			try
 			{
 				if (!possibleStates.isEmpty())
-					for (int i = 0; i < 20; i++)
-						if (tdi.getTetrisData().removeTetro()
-								.compareTo(possibleStates.first()) > 1
-								|| tdi.getTetrisData().removeTetro()
-										.compareTo(possibleStates.first()) < -1)
-							try
-							{
-								Thread.sleep(100);
-							} catch (InterruptedException e)
-							{
-								e.printStackTrace();
-							}
-			} catch (IndexOutOfBoundsException | NoInputException e)
+				for (int i = 0; i < 15; i++)
+					if (tdi.getTetrisData().removeTetro()
+							.compareTo(possibleStates.first()) > 1
+							|| tdi.getTetrisData().removeTetro()
+									.compareTo(possibleStates.first()) < -1)
+						try
+						{
+							Thread.sleep(100);
+						} catch (InterruptedException e)
+						{
+							e.printStackTrace();
+						}
+			} catch (NullPointerException | IndexOutOfBoundsException | NoInputException e)
 			{
-				System.err.println("Probleme de camera");
-				e.printStackTrace();
-			}
+			}/*
 			try
 			{
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
-			}
+			}*/
 		}
 	}
 
@@ -116,7 +113,7 @@ public class IAMain implements Runnable
 
 	private void play(List<Command> commands)
 	{
-		Executor ex = new InternExecutor();
+		Executor ex = new PhysicalExecutor();
 		for (Command c : commands)
 		{
 			ex.execute(c);
