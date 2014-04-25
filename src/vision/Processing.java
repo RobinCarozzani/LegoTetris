@@ -102,17 +102,26 @@ public class Processing {
 			Collections.sort(contours, new ComparaisonContour());
 			if (contours.size() > 2) {
 				MatOfPoint2f c = new MatOfPoint2f(contours.get(1).toArray());
-				double[] coord = c.get(1, 0);
+				MatOfPoint2f c2 = new MatOfPoint2f(contours.get(2).toArray());
+				double[] coord = c2.get(1, 0);
 				if (coord == null)
 					throw new BadWebcamException("Erreur inconnue");
 				Point p = new Point(coord[0], coord[1]);
 				while (Imgproc.pointPolygonTest(c, p, false) < 0 && contours.size() > 2) {
 					contours.remove(2);
+					if (contours.size()<3)
+						throw new BadWebcamException("Erreur inconnue");
+					c2 = new MatOfPoint2f(contours.get(2).toArray());
+					coord = c2.get(1, 0);
+					if (coord == null)
+						throw new BadWebcamException("Erreur inconnue");
+					p = new Point(coord[0], coord[1]);
 				}
 			}
+			/*
 			for (int i=0 ; i<3 && i<contours.size() ; i++) {
 				Imgproc.drawContours(src, contours, i, new Scalar(0, 255, 0), 2);
-			}
+			}*/
 			int pasLig = (maxLig-minLig)/20;
 			int pasCol = (maxCol-minCol)/10;
 			if (pasLig > 0 && pasCol > 0 && contours.size()>2) {
@@ -125,10 +134,16 @@ public class Processing {
 					for (int j=pasCol/2 ; j<10*pasCol ; j+=pasCol) {
 						Point p = new Point((double)j, (double)i);
 						if (Imgproc.pointPolygonTest(c2, p, false) >= 0) {
-							res.get(k).add(2);
-							//Core.line(src, p, p, new Scalar(255, 101, 101));
-							Core.rectangle(src, new Point((double)j-pasCol/2, (double)i-pasLig/2), new Point((double)j+pasCol/2, (double)i+pasLig/2), new Scalar(0,0,255),-1);
-
+							double[] pixel = img2.get(i, j);
+							if (pixel!=null && pixel.length > 2 && pixel[0]==0.0 && pixel[1]==0.0 && pixel[2]==0.0) {
+								res.get(k).add(0);
+								//Core.line(src, p, p, new Scalar(255, 255, 255));
+								Core.rectangle(src, new Point((double)j-pasCol/2, (double)i-pasLig/2), new Point((double)j+pasCol/2, (double)i+pasLig/2), new Scalar(255,255,255),-1);
+							} else {
+								res.get(k).add(2);
+								//Core.line(src, p, p, new Scalar(255, 101, 101));
+								Core.rectangle(src, new Point((double)j-pasCol/2, (double)i-pasLig/2), new Point((double)j+pasCol/2, (double)i+pasLig/2), new Scalar(0,0,255),-1);
+							}
 						} else if (Imgproc.pointPolygonTest(c, p, false) >= 0) {
 							res.get(k).add(0);
 							//Core.line(src, p, p, new Scalar(255, 255, 255));
@@ -142,7 +157,8 @@ public class Processing {
 					k++;
 				}
 			}
-			//TODO game.showImage(src);
+			//TODO 
+			game.showImage(src);
 		}
 		return res;
 	}
